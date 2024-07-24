@@ -16,7 +16,7 @@ pipeline {
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test
-                sh 'C:/ProgramData/Jenkins/.jenkins/workspace/set/test.yml'
+                sh 'C:/ProgramData/Jenkins/.jenkins/workspace/PerformanceTestGitHub/test.yml'
             }
         }
 
