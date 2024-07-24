@@ -9,7 +9,7 @@ pipeline {
         stage('Preparation') {
             steps {
                 // Clone the repository
-                git url: 'git clone https://github.com/OmairAhmed111/PerformanceTest.git/', branch: 'main'
+                git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
             }
         }
 
