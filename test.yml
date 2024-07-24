@@ -1,0 +1,10 @@
+execution:
+  scenario:
+    script: test.jmx  # Path to your JMeter .jmx file
+  concurrency: 10  # Number of concurrent users
+  ramp-up: 1m  # Ramp-up time
+  hold-for: 5m  # Duration of the test run
+
+modules:
+  jmeter:
+    path: /opt/apache-jmeter-5.4.1/bin/jmeter  # Path to JMeter executable
