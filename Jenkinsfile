@@ -8,13 +8,6 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                // Install Taurus if not already installed
-                sh '''
-                    if ! command -v bzt &> /dev/null
-                    then
-                        pip install bzt==$TAURUS_VERSION
-                    fi
-                '''
                 // Clone the repository
                 git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
             }
@@ -23,7 +16,7 @@ pipeline {
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test
-                sh 'bzt test.yml'
+                sh 'test.yml'
             }
         }
 
@@ -38,9 +31,7 @@ pipeline {
     post {
         always {
             // Archive the test results and logs
-            archiveArtifacts artifacts: '**/results/**', allowEmptyArchive: true
-            // Clean up workspace after the build
-            cleanWs()
+            archiveArtifacts artifacts: '/results/**', allowEmptyArchive: true
         }
     }
 }
