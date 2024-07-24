@@ -16,7 +16,7 @@ pipeline {
                     fi
                 '''
                 // Clone the repository
-                git url: 'https://github.com/test/set.git', branch: 'main'
+                git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
             }
         }
 
