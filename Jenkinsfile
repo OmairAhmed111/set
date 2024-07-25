@@ -12,14 +12,6 @@ pipeline {
                 git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
             }
         }
-
-        stage('Install BZT') {
-            steps {
-                // Install BZT using pip
-                bat 'C:\\Users\\ahmedoma\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip.exe install bzt==${TAURUS_VERSION}'
-            }
-        }
-
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test using bzt
