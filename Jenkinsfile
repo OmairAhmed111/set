@@ -28,16 +28,14 @@ pipeline {
         }
 
     }
-post {
-    always {
-        // Archive the test results and logs
-        archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
+    post {
+        always {
+            // Archive the test results and logs
+            archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
 
-        // Generate performance graphs
-        perfReport sourceDataFiles: '**/*.jtl'
-
-        // Publish test result report
-        junit '**/*.jtl'
+            // Generate performance graphs
+            perfReport sourceDataFiles: '**/*.jtl'
+        }
     }
-  }
+
 }
