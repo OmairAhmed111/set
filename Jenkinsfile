@@ -16,7 +16,7 @@ pipeline {
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test
-                sh 'C:/ProgramData/Jenkins/.jenkins/workspace/PerformanceTestGitHub/test.yml'
+                sh 'bzt C:/ProgramData/Jenkins/.jenkins/workspace/PerformanceTestGitHub/test.yml'
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
     post {
         always {
             // Archive the test results and logs
-            archiveArtifacts artifacts: '/results/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'results/**', allowEmptyArchive: true
         }
     }
 }
