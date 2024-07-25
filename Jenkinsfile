@@ -15,8 +15,12 @@ pipeline {
 
         stage('Install Taurus') {
             steps {
-                // Install Taurus
-                bat 'pip install bzt==${env.TAURUS_VERSION}'
+                // Install Taurus if not already installed
+                bat '''
+                    if not exist "%APPDATA%\\bzt" (
+                        pip install bzt==${TAURUS_VERSION}
+                    )
+                '''
             }
         }
 
