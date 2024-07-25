@@ -6,4 +6,4 @@ execution:
 
 modules:
   jmeter:
-    path: D:\\apache-jmeter-5.6.3(1)\\apache-jmeter-5.6.3\\bin\\jmeter.bat  # Path to JMeter executable on Windows
+    path: C:\\Users\\ahmedoma\\.bzt\\jmeter-taurus\\5.5\\bin\\jmeter.bat  # Path to JMeter executable on Windows
