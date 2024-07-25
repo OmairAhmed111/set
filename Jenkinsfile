@@ -27,15 +27,6 @@ pipeline {
             }
         }
 
-        stage('Archive Results') {
-            steps {
-                // Debug output to verify files are present
-                bat "dir ${env.WORKSPACE}\\**\\results"
-                
-                // Archive the test results and logs
-                archiveArtifacts artifacts: '**/2024-*/**/*.jtl', allowEmptyArchive: true
-            }
-        }
     }
 
     post {
