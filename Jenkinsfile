@@ -23,7 +23,7 @@ pipeline {
         stage('Publish Performance Report') {
             steps {
                 // Publish JMeter report
-                perfReport sourceDataFiles: '**/2024-*/**/*.jtl'
+                perfReport sourceDataFiles: '**/*.jtl'
             }
         }
 
@@ -32,10 +32,10 @@ pipeline {
     post {
         always {
             // Archive the test results and logs
-            archiveArtifacts artifacts: '**/2024-*/**/*.jtl', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
 
             // Generate performance graphs
-            perfReport sourceDataFiles: '**/2024-*/**/*.jtl'
+            perfReport sourceDataFiles: '**/*.jtl'
         }
     }
 }
