@@ -13,34 +13,42 @@ pipeline {
             }
         }
 
+        stage('Install BZT') {
+            steps {
+                // Install BZT using pip
+                bat 'C:\\Users\\ahmedoma\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip.exe install bzt==${TAURUS_VERSION}'
+            }
+        }
+
         stage('Run Performance Test') {
             steps {
-                // Run the Taurus test using 'bat' for Windows
-                bat 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
+                // Run the Taurus test using bzt
+                bat 'C:\\Users\\ahmedoma\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\bzt.exe C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\PerformanceTestGitHub\\test.yml'
             }
         }
 
         stage('Publish Performance Report') {
             steps {
-                // Publish JMeter report
+                // Publish JMeter report if JMeter results are generated
                 perfReport sourceDataFiles: '**/*.jtl'
             }
         }
-  stage('Archive Results') {
+
+        stage('Archive Results') {
             steps {
                 // Debug output to verify files are present
                 bat "dir ${env.WORKSPACE}\\results"
                 
                 // Archive the test results and logs
-                archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'results/**/*.jtl', allowEmptyArchive: true
             }
         }
     }
 
     post {
         always {
-               // Archive the test results and logs
-            archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
+            // Archive the test results and logs
+            archiveArtifacts artifacts: 'results/**/*.jtl', allowEmptyArchive: true
         }
     }
 }
