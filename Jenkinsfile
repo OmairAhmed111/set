@@ -13,16 +13,24 @@ pipeline {
             }
         }
 
+        stage('Install BZT') {
+            steps {
+                // Install BZT
+                bat 'pip install bzt==${TAURUS_VERSION}'
+            }
+        }
+
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test using 'bat' for Windows
-                bat 'test.yml'
+                bat 'bzt test.yml'
             }
         }
 
         stage('Publish Performance Report') {
             steps {
-                // Publish JMeter report
+                // Assuming you use the JMeter plugin for Jenkins to publish the report
+                // Adjust the path to your actual JMeter results
                 perfReport sourceDataFiles: '**/*.jtl'
             }
         }
