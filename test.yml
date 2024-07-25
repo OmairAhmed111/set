@@ -1,6 +1,6 @@
 execution:
   scenario:
-    script: C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\PerformanceTestGitHub\\test.jmx  # Path to your JMeter .jmx file
+    script: test.jmx  # Path to your JMeter .jmx file
   concurrency: 10  # Number of concurrent users
   ramp-up: 1m  # Ramp-up time
   hold-for: 5m  # Duration of the test run
