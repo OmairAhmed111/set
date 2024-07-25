@@ -13,17 +13,10 @@ pipeline {
             }
         }
 
-        stage('Install BZT') {
-            steps {
-                // Specify full path to pip if it's not in PATH
-                bat 'C:\\Users\\ahmedoma\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip.exe install bzt==${TAURUS_VERSION}'
-            }
-        }
-
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test using 'bat' for Windows
-                bat 'bzt test.yml'
+                bat 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
             }
         }
 
