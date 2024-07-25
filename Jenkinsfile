@@ -15,8 +15,8 @@ pipeline {
 
         stage('Install BZT') {
             steps {
-                // Install BZT
-                bat 'pip install bzt==${TAURUS_VERSION}'
+                // Specify full path to pip if it's not in PATH
+                bat 'C:\\Users\\ahmedoma\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip.exe install bzt==${TAURUS_VERSION}'
             }
         }
 
@@ -29,8 +29,7 @@ pipeline {
 
         stage('Publish Performance Report') {
             steps {
-                // Assuming you use the JMeter plugin for Jenkins to publish the report
-                // Adjust the path to your actual JMeter results
+                // Publish JMeter report
                 perfReport sourceDataFiles: '**/*.jtl'
             }
         }
