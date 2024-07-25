@@ -32,7 +32,7 @@ pipeline {
                 bat "dir ${env.WORKSPACE}\\results"
                 
                 // Archive the test results and logs
-                archiveArtifacts artifacts: 'results/**', allowEmptyArchive: true
+                archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
             }
         }
     }
