@@ -31,7 +31,7 @@ pipeline {
     post {
         always {
             // Archive the test results and logs
-            archiveArtifacts artifacts: 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//results//**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//**', allowEmptyArchive: true
         }
     }
 }
