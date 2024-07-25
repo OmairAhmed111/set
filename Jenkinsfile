@@ -16,7 +16,7 @@ pipeline {
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test using 'bat' for Windows
-                bat 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\PerformanceTestGitHub\\test.jmx'
+                bat 'test.yml'
             }
         }
 
