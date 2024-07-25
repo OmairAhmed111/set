@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TAURUS_VERSION = '1.16.1' // Specify the Taurus version you need
+        TAURUS_VERSION = '1.16.1'  // Specify the Taurus version you need
     }
 
     stages {
@@ -13,21 +13,17 @@ pipeline {
             }
         }
 
-        stage('Install Taurus') {
+        stage('Run Performance Test') {
             steps {
-                // Install Taurus if not already installed
-                bat '''
-                    if not exist "%APPDATA%\\bzt" (
-                        pip install bzt==${TAURUS_VERSION}
-                    )
-                '''
+                // Run the Taurus test using 'bat' for Windows
+                bat 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\PerformanceTestGitHub\\test.yml'
             }
         }
 
-        stage('Run Performance Test') {
+        stage('Publish Performance Report') {
             steps {
-                // Run the Taurus test
-                bat 'bzt test.yml'
+                // Publish JMeter report
+                perfReport sourceDataFiles: '**/*.jtl'
             }
         }
     }
