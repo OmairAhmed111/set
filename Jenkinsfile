@@ -26,12 +26,21 @@ pipeline {
                 perfReport sourceDataFiles: '**/*.jtl'
             }
         }
+  stage('Archive Results') {
+            steps {
+                // Debug output to verify files are present
+                bat "dir ${env.WORKSPACE}\\results"
+                
+                // Archive the test results and logs
+                archiveArtifacts artifacts: 'results/**', allowEmptyArchive: true
+            }
+        }
     }
 
     post {
         always {
-            // Archive the test results and logs
-            archiveArtifacts artifacts: 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//**', allowEmptyArchive: true
+               // Archive the test results and logs
+            archiveArtifacts artifacts: 'results/**', allowEmptyArchive: true
         }
     }
 }
