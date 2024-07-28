@@ -13,4 +13,4 @@ reporting:
   - module: junit-xml
     filename: results.xml
   - module: html
-    dir: reports  # Ensure this matches the directory used in Jenkinsfile
+    dir: C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//reports  # Ensure this matches the directory used in Jenkinsfile
