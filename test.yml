@@ -9,9 +9,6 @@ modules:
     path: C:\\Users\\ahmedoma\\.bzt\\jmeter-taurus\\5.5\\bin\\jmeter.bat  # Path to JMeter executable on Windows
 
 reporting:
-  module: final-stats
-  module: junit-xml
+  - module: final-stats
+  - module: junit-xml
     filename: results.xml
-  module: console  # Provides real-time reporting to the console
-  module: html  # Generates an HTML report
-    directory: reports  # Directory to store the HTML report
