@@ -1,6 +1,4 @@
 pipeline {
-    agent any
-
     environment {
         TAURUS_VERSION = '1.16.1'  // Specify the Taurus version you need
         GIT_URL = credentials('https://github.com/OmairAhmed111/set.git')  // Use Jenkins credentials for the Git URL
