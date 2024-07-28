@@ -44,14 +44,8 @@ pipeline {
 
         stage('Publish Results') {
             steps {
-                script {
-                    if (fileExists('results.xml')) {
                         // Publish JUnit test results
                         junit 'results.xml'
-                    } else {
-                        echo 'results.xml not found!'
-                    }
-                }
             }
         }
 
