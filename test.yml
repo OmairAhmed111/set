@@ -12,3 +12,8 @@ reporting:
   - module: final-stats
   - module: junit-xml
     filename: results.xml
+  - module: console
+  - module: jtl
+    filename: results.jtl
+  - module: html
+    dir: reports  # Ensure this matches the directory used in Jenkinsfile
