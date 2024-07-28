@@ -1,4 +1,6 @@
 pipeline {
+ agent any
+
     environment {
         TAURUS_VERSION = '1.16.1'  // Specify the Taurus version you need
         JMETER_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
