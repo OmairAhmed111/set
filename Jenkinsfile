@@ -1,7 +1,6 @@
 pipeline {
     environment {
         TAURUS_VERSION = '1.16.1'  // Specify the Taurus version you need
-        GIT_URL = credentials('https://github.com/OmairAhmed111/set.git')  // Use Jenkins credentials for the Git URL
         JMETER_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
         TEST_YML_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
     }
@@ -16,7 +15,7 @@ pipeline {
         stage('Preparation') {
             steps {
                 // Clone the repository
-                git url: "${GIT_URL}", branch: 'main'
+                git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
             }
         }
         stage('Run Performance Test') {
