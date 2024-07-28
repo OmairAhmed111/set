@@ -52,7 +52,7 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//reports',
+                    reportDir: 'reports',
                     reportFiles: 'index.html',
                     reportName: 'Taurus Performance Report'
                 ])
