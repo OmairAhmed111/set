@@ -14,5 +14,3 @@ reporting:
    - module: final-stats
   - module: junit-xml
     filename: results.xml
-  - module: html  # Generates an HTML report
-    directory: reports  # Directory to store the HTML report
