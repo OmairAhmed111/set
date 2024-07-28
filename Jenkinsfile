@@ -31,7 +31,7 @@ pipeline {
         stage('Run Performance Test') {
             steps {
                 // Run the Taurus test using 'bat' for Windows
-                bat "${env.TAURUS_PATH} ${env.TAURUS_CONFIG}"
+                bat 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
             }
         }
 
