@@ -42,8 +42,8 @@ pipeline {
             }
         }
 
-        stage('Publish Results') {
-               steps {
+     stage('Publish Results') {
+            steps {
                 script {
                     if (fileExists('results.xml')) {
                         // Publish JUnit test results
@@ -52,6 +52,7 @@ pipeline {
                         echo 'results.xml not found!'
                     }
                 }
+            }
         }
 
         stage('Publish HTML Report') {
