@@ -6,6 +6,7 @@ pipeline {
         WORKSPACE_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub'
         TAURUS_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
         TAURUS_CONFIG = "${WORKSPACE_PATH}//test.yml"
+        REPORT_DIR = "${WORKSPACE_PATH}//reports"
     }
 
     stages {
@@ -53,6 +54,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Publish HTML Report') {
+            steps {
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'index.html',
+                    reportName: 'Taurus Performance Report'
+                ])
+            }
+        }
     }
 
     post {
@@ -62,6 +76,9 @@ pipeline {
 
             // Generate performance graphs
             perfReport sourceDataFiles: '**/*.jtl'
+
+            // Clean up workspace
+            cleanWs()
         }
     }
 }
