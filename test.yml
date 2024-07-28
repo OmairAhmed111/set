@@ -13,5 +13,3 @@ reporting:
   - module: junit-xml
     filename: results.xml
   - module: console
-  - module: jtl
-    filename: results.jtl
