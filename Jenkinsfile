@@ -1,5 +1,3 @@
-@Library('pipeline-library@master') _  // Using a library (optional)
-
 pipeline {
     agent any
 
