@@ -1,10 +1,8 @@
 pipeline {
- agent any
+    agent any
 
     environment {
         TAURUS_VERSION = '1.16.1'  // Specify the Taurus version you need
-        JMETER_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
-        TEST_YML_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
     }
 
     options {
@@ -22,8 +20,8 @@ pipeline {
         }
         stage('Run Performance Test') {
             steps {
-                // Run the Taurus test using 'bat' for Windows
-                bat "${JMETER_PATH} ${TEST_YML_PATH}"
+                 // Run the Taurus test using 'bat' for Windows
+                bat 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
             }
         }
         stage('Publish Performance Report') {
