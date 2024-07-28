@@ -1,3 +1,5 @@
+@Library('pipeline-library@master') _  // Using a library (optional)
+
 pipeline {
     agent any
 
@@ -12,15 +14,17 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                // Clone the repository
-                git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
+                script {
+                    // Clone the repository
+                    git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
+                }
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Install Taurus (if not installed)
                 script {
+                    // Install Taurus (if not installed)
                     if (!fileExists(env.TAURUS_PATH)) {
                         bat 'pip install bzt'
                     }
@@ -30,15 +34,19 @@ pipeline {
 
         stage('Run Performance Test') {
             steps {
-                // Run the Taurus test using 'bat' for Windows
-                bat "${env.TAURUS_PATH} ${env.TAURUS_CONFIG}"
+                script {
+                    // Run the Taurus test using 'bat' for Windows
+                    bat "${env.TAURUS_PATH} ${env.TAURUS_CONFIG}"
+                }
             }
         }
 
         stage('Publish Performance Report') {
             steps {
-                // Publish JMeter report
-                perfReport sourceDataFiles: '**/*.jtl'
+                script {
+                    // Publish JMeter report
+                    perfReport sourceDataFiles: '**/*.jtl'
+                }
             }
         }
 
@@ -57,28 +65,32 @@ pipeline {
 
         stage('Publish HTML Report') {
             steps {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'reports',
-                    reportFiles: 'index.html',
-                    reportName: 'Taurus Performance Report'
-                ])
+                script {
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'reports',
+                        reportFiles: 'index.html',
+                        reportName: 'Taurus Performance Report'
+                    ])
+                }
             }
         }
     }
 
     post {
         always {
-            // Archive the test results and logs
-            archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
+            script {
+                // Archive the test results and logs
+                archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
 
-            // Generate performance graphs
-            perfReport sourceDataFiles: '**/*.jtl'
+                // Generate performance graphs
+                perfReport sourceDataFiles: '**/*.jtl'
 
-            // Clean up workspace
-            cleanWs()
+                // Clean up workspace
+                cleanWs()
+            }
         }
     }
 }
