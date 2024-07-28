@@ -76,9 +76,6 @@ pipeline {
 
             // Generate performance graphs
             perfReport sourceDataFiles: '**/*.jtl'
-
-            // Clean up workspace
-            cleanWs()
         }
     }
 }
