@@ -55,7 +55,7 @@ pipeline {
             }
         }
 
-        stage('Publish HTML Report') {
+       stage('Publish HTML Report') {
             steps {
                 publishHTML(target: [
                     allowMissing: false,
@@ -68,7 +68,6 @@ pipeline {
             }
         }
     }
-
     post {
         always {
             // Archive the test results and logs
