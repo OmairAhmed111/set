@@ -3,30 +3,17 @@ execution:
     script: test.jmx  # Path to your JMeter .jmx file
   concurrency: 10  # Number of concurrent users
   ramp-up: 1m  # Ramp-up time
-  hold-for: 5m  # Duration of the test
-  iterations: 100  # Number of iterations per user
 
 modules:
   jmeter:
     path: C:\\Users\\ahmedoma\\.bzt\\jmeter-taurus\\5.5\\bin\\jmeter.bat  # Path to JMeter executable on Windows
-  console:  # Provides real-time reporting to the console
+ console:  # Provides real-time reporting to the console
     disable: true  # Disable console output to improve performance
 
 reporting:
-  - module: final-stats
+   - module: final-stats
   - module: junit-xml
     filename: results.xml
   - module: html  # Generates an HTML report
     directory: reports  # Directory to store the HTML report
   - module: cloud  # Optional: Upload results to a cloud service for better accessibility
-
-provisioning:
-  local:  # Use local provisioning for simplicity
-    nodes: 2  # Use multiple nodes for distributed testing
-
-services:
-  - module: shellexec
-    execute:  # Execute a shell command before the test
-      - command: "echo Starting JMeter test"
-    post-execute:  # Execute a shell command after the test
-      - command: "echo JMeter test completed"
