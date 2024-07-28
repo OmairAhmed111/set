@@ -46,9 +46,6 @@ pipeline {
             // Generate performance graphs
             perfReport sourceDataFiles: '**/*.jtl'
 
-            // Clean up workspace
-            cleanWs()
-
             // Generate HTML report URL
             script {
                 def reportUrl = "${env.BUILD_URL}reports/index.html"
