@@ -12,5 +12,6 @@ reporting:
   - module: final-stats
   - module: junit-xml
     filename: results.xml
-  - module: html
-    dir: C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//reports  # Ensure this matches the directory used in Jenkinsfile
+  - module: console
+  - module: jtl
+    filename: results.jtl
