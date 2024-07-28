@@ -87,7 +87,7 @@ pipeline {
                 perfReport sourceDataFiles: '**/*.jtl'
 
                 // Clean up workspace
-                cleanWs()
+                //cleanWs()
             }
         }
     }
