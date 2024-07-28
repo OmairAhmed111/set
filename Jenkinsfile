@@ -3,91 +3,65 @@ pipeline {
 
     environment {
         TAURUS_VERSION = '1.16.1'  // Specify the Taurus version you need
-        WORKSPACE_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub'
-        TAURUS_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
-        TAURUS_CONFIG = "${WORKSPACE_PATH}//test.yml"
-        REPORT_DIR = "${WORKSPACE_PATH}//reports"
+        GIT_URL = credentials('https://github.com/OmairAhmed111/set.git')  // Use Jenkins credentials for the Git URL
+        JMETER_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
+        TEST_YML_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
+    }
+
+    options {
+        timestamps()  // Add timestamps to the console output
+        timeout(time: 1, unit: 'HOURS')  // Set a timeout for the pipeline
+        disableConcurrentBuilds()  // Prevent concurrent builds
     }
 
     stages {
         stage('Preparation') {
             steps {
-                script {
-                    // Clone the repository
-                    git url: 'https://github.com/OmairAhmed111/set.git', branch: 'main'
-                }
+                // Clone the repository
+                git url: "${GIT_URL}", branch: 'main'
             }
         }
-
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    // Install Taurus (if not installed)
-                    if (!fileExists(env.TAURUS_PATH)) {
-                        bat 'pip install bzt'
-                    }
-                }
-            }
-        }
-
         stage('Run Performance Test') {
             steps {
-                script {
-                    // Run the Taurus test using 'bat' for Windows
-                    bat "${env.TAURUS_PATH} ${env.TAURUS_CONFIG}"
-                }
+                // Run the Taurus test using 'bat' for Windows
+                bat "${JMETER_PATH} ${TEST_YML_PATH}"
             }
         }
-
         stage('Publish Performance Report') {
             steps {
-                script {
-                    // Publish JMeter report
-                    perfReport sourceDataFiles: '**/*.jtl'
-                }
+                // Publish JMeter report
+                perfReport sourceDataFiles: '**/*.jtl'
             }
         }
-
         stage('Publish Results') {
             steps {
-                script {
-                    if (fileExists('results.xml')) {
-                        // Publish JUnit test results
-                        junit 'results.xml'
-                    } else {
-                        echo 'results.xml not found!'
-                    }
-                }
-            }
-        }
-
-        stage('Publish HTML Report') {
-            steps {
-                script {
-                    publishHTML(target: [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'reports',
-                        reportFiles: 'index.html',
-                        reportName: 'Taurus Performance Report'
-                    ])
-                }
+                // Publish JUnit test results
+                junit 'results.xml'
             }
         }
     }
 
     post {
         always {
+            // Archive the test results and logs
+            archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
+
+            // Generate performance graphs
+            perfReport sourceDataFiles: '**/*.jtl'
+
+            // Clean up workspace
+            cleanWs()
+
+            // Generate HTML report URL
             script {
-                // Archive the test results and logs
-                archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
+                def reportUrl = "${env.BUILD_URL}reports/index.html"
+                echo "HTML Report URL: ${reportUrl}"
+            }
 
-                // Generate performance graphs
-                perfReport sourceDataFiles: '**/*.jtl'
-
-                // Clean up workspace
-                //cleanWs()
+            // Display results
+            script {
+                def resultsXml = readFile 'results.xml'
+                echo "Results XML: ${resultsXml}"
             }
         }
     }
