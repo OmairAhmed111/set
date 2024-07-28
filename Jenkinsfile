@@ -26,8 +26,13 @@ pipeline {
                 perfReport sourceDataFiles: '**/*.jtl'
             }
         }
-
-    }
+        stage('Publish Results') {
+                    steps {
+                        // Publish JUnit test results
+                        junit 'results.xml'
+                    }
+                }
+            }
     post {
         always {
             // Archive the test results and logs
