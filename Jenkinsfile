@@ -1,3 +1,5 @@
+@Library('pipeline-library@master') _  // Using a library (optional)
+
 pipeline {
     agent any
 
@@ -50,8 +52,29 @@ pipeline {
 
         stage('Publish Results') {
             steps {
+                script {
+                    if (fileExists('results.xml')) {
                         // Publish JUnit test results
                         junit 'results.xml'
+                    } else {
+                        echo 'results.xml not found!'
+                    }
+                }
+            }
+        }
+
+        stage('Publish HTML Report') {
+            steps {
+                script {
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'reports',
+                        reportFiles: 'index.html',
+                        reportName: 'Taurus Performance Report'
+                    ])
+                }
             }
         }
     }
