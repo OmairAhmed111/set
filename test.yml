@@ -12,3 +12,6 @@ reporting:
   - module: final-stats
   - module: junit-xml
     filename: results.xml
+  - module: console  # Provides real-time reporting to the console
+  - module: html  # Generates an HTML report
+    directory: reports  # Directory to store the HTML report
