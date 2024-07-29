@@ -6,6 +6,9 @@ pipeline {
         GIT_URL = 'https://github.com/OmairAhmed111/set.git'  // Use the Git URL directly
         JMETER_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
         TEST_YML_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
+        GITHUB_TOKEN = credentials('github-token') // GitHub App token stored in Jenkins credentials
+        GITHUB_REPOSITORY = 'OmairAhmed111/set' // Replace with your GitHub repository
+        CHECK_RUN_NAME = 'Jenkins CI'
     }
 
     options {
@@ -15,6 +18,27 @@ pipeline {
     }
 
     stages {
+        stage('Initialize Check Run') {
+            steps {
+                script {
+                    def response = httpRequest acceptType: 'APPLICATION_JSON',
+                                              contentType: 'APPLICATION_JSON',
+                                              httpMode: 'POST',
+                                              requestBody: """
+                                              {
+                                                "name": "${env.CHECK_RUN_NAME}",
+                                                "head_sha": "${env.GIT_COMMIT}",
+                                                "status": "in_progress",
+                                                "started_at": "${new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))}"
+                                              }
+                                              """,
+                                              url: "https://api.github.com/repos/${env.GITHUB_REPOSITORY}/check-runs",
+                                              customHeaders: [[name: 'Authorization', value: "Bearer ${env.GITHUB_TOKEN}"]]
+                    def checkRun = new groovy.json.JsonSlurper().parseText(response.content)
+                    env.CHECK_RUN_ID = checkRun.id
+                }
+            }
+        }
         stage('Preparation') {
             steps {
                 // Clone the repository
@@ -62,6 +86,22 @@ pipeline {
 
     post {
         always {
+            script {
+                def conclusion = currentBuild.result == 'SUCCESS' ? 'success' : 'failure'
+                httpRequest acceptType: 'APPLICATION_JSON',
+                            contentType: 'APPLICATION_JSON',
+                            httpMode: 'PATCH',
+                            requestBody: """
+                            {
+                              "status": "completed",
+                              "completed_at": "${new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))}",
+                              "conclusion": "${conclusion}"
+                            }
+                            """,
+                            url: "https://api.github.com/repos/${env.GITHUB_REPOSITORY}/check-runs/${env.CHECK_RUN_ID}",
+                            customHeaders: [[name: 'Authorization', value: "Bearer ${env.GITHUB_TOKEN}"]]
+            }
+
             // Archive the test results and logs
             archiveArtifacts artifacts: '**/*.jtl', allowEmptyArchive: true
 
