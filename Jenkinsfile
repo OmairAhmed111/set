@@ -33,19 +33,19 @@ pipeline {
                 perfReport sourceDataFiles: '**/*.jtl'
             }
         }
-        // stage('Publish Results') {
-        //     steps {
-        //         script {
-        //             bat 'dir'
-        //             if (fileExists('results.xml')) {
-        //                 // Publish JUnit test results
-        //                 junit 'results.xml'
-        //             } else {
-        //                 echo 'results.xml not found!'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Publish Results') {
+            steps {
+                script {
+                    bat 'dir'
+                    if (fileExists('results.xml')) {
+                        // Publish JUnit test results
+                        junit 'results.xml'
+                    } else {
+                        echo 'results.xml not found!'
+                    }
+                }
+            }
+        }
         stage('Publish HTML Report') {
             steps {
                 publishHTML(target: [
