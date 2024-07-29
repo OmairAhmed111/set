@@ -52,9 +52,9 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: 'PerformanceTestGitHub\reports',
+                    reportDir: 'performance-reports\JMeter',
                     reportFiles: 'index.html',
-                    reportName: 'Taurus Performance Report'
+                    reportName: 'TaurusPerformanceReport'
                 ])
             }
         }
