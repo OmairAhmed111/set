@@ -7,7 +7,7 @@ pipeline {
         JMETER_PATH = 'C://Users//ahmedoma//AppData//Local//Programs//Python//Python312//Scripts//bzt.exe'
         TEST_YML_PATH = 'C://ProgramData//Jenkins//.jenkins//workspace//PerformanceTestGitHub//test.yml'
         GITHUB_TOKEN = credentials('github-token') // GitHub App token stored in Jenkins credentials
-        GITHUB_REPOSITORY = 'OmairAhmed111/set' // Replace with your GitHub repository
+        GITHUB_REPOSITORY = 'https://github.com/OmairAhmed111/set' // Replace with your GitHub repository
         CHECK_RUN_NAME = 'Jenkins CI'
     }
 
