@@ -52,7 +52,7 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
-                    reportDir: 'performance-reports\JMeter',
+                    reportDir: 'reports',
                     reportFiles: 'index.html',
                     reportName: 'TaurusPerformanceReport'
                 ])
